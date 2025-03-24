@@ -8,7 +8,7 @@ public static class ImprimeMatriz
         {
             for (int j = 0; j < dimensao + 1; j++)
             {
-                Console.Write($"{Math.Round(matriz[i, j]):F2} ");
+                Console.Write($"{matriz[i, j]:F2} ");
             }
             Console.WriteLine();
         }

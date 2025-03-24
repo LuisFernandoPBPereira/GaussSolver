@@ -2,11 +2,14 @@
 
 try
 {
+    #region Montando a matriz com o sistema
+
     Console.Write("Digite o número de variáveis/equações (X): ");
     int dimensao = int.Parse(Console.ReadLine()!);
     const int TERMO_INDEPENDENTE = 1;
 
     double[,] matriz = new double[dimensao, dimensao + TERMO_INDEPENDENTE];
+    double[] solucao = new double[dimensao];
 
     Console.WriteLine("Digite os coeficientes da matriz aumentada (incluindo os termos independentes):");
     for (int i = 0; i < dimensao; i++)
@@ -17,20 +20,17 @@ try
         }
     }
 
+    #endregion
+
     Console.WriteLine("Matriz inicial:");
     ImprimeMatriz.Executar(matriz, dimensao);
 
-    Escalonamento.Executar(matriz, dimensao);
+    #region Resolução do Escalonamento
 
-    double[] solucao = new double[dimensao];
-    for (int i = dimensao - 1; i >= 0; i--)
-    {
-        solucao[i] = matriz[i, dimensao];
-        for (int j = i + 1; j < dimensao; j++)
-        {
-            solucao[i] -= matriz[i, j] * solucao[j];
-        }
-    }
+    Escalonamento.Executar(matriz, dimensao);
+    ResolverSistema.Executar(matriz, dimensao, solucao);
+
+    #endregion
 
     Console.WriteLine("Solução do sistema:");
     for (int i = 0; i < dimensao; i++)
